@@ -23,25 +23,28 @@ function finalize_buttons() {
 function new_game() {
     game = new BlackJack();
     debug(game);
+    player_new_card();
+    dealer_new_card();
+    dealer_new_card();
 }
 
 function update_dealer(state) {
-
-    player_move() ;
+    //player_move() ;
+    //if(state== )
 
 }
 
 function update_player(state) {
     
-    dealer_move();
+    //dealer_move();
 }
 
 function dealer_new_card() {
-
+    update_dealer();
 }
 
 function player_new_card() {
-
+    update_player();
 }
 
 function dealer_finish() {

@@ -2,6 +2,7 @@
 
 //constante com o número máximo de pontos para blackJack
 const MAX_POINTS = 21;
+const MIN_POINTS_DEALER=17;
 
 // Classe BlackJack - construtor
 class BlackJack {
@@ -22,8 +23,8 @@ class BlackJack {
 
         //métodos utilizados no construtor (DEVEM SER IMPLEMENTADOS PELOS ALUNOS)
         this.new_deck = function () {
-            let suits = ["Spades", "Hearts", "Diamonds", "Clubs"];
-            let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+            let suits = ["spades", "hearts", "diamonds", "clubs"];
+            let values = ["ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"];
             // deck_aux = new Array();
             let deck_aux = [];
             for (var i = 0; i < values.length; i++) {
@@ -35,6 +36,7 @@ class BlackJack {
                     if (values[i] == "A")
                         weight = 11;*/
                     var card = { Value: values[i], Suit: suits[x] };
+                    //var card = values[i] + "_of_" + suits[x];
                     deck_aux.push(card);
                 }
             }
@@ -105,12 +107,17 @@ class BlackJack {
     }
 
     dealer_move() {
-        this.dealerTurn = true;
+        var carta= this.deck.pop()
+        this.dealer_cards.push(carta)
+        //this.dealerTurn = true;
 
     }
 
     player_move() {
-        this.dealerTurn = false;
+        var carta= this.deck.pop()
+        this.player_cards.push(carta)
+        //this.dealerTurn = false;
+        this.get_game_state()
     }
 
     get_game_state() {
@@ -118,21 +125,27 @@ class BlackJack {
         let player_pontos = this.get_cards_value(this.player_cards)
 
         if (this.dealerTurn) {
-            if (player_pontos > 21 || dealer_pontos == 21 && dealer_pontos > player_pontos) {
+            if (player_pontos > 21 || dealer_pontos == 21 || dealer_pontos > player_pontos && dealer_pontos>=MIN_POINTS_DEALER) {
                 //player perde
                 this.state.gameEnded=true
                 this.state.dealerWon=true
-                }
+                
             }
-            if (dealer_pontos > 21 || player_pontos == 21 && dealer_pontos < player_pontos) {
+            if (dealer_pontos > 21 || player_pontos == 21 || dealer_pontos < player_pontos && dealer_pontos>=MIN_POINTS_DEALER) {
                 //dealer perde
-
+                this.state.gameEnded=true
+                this.state.dealerWon=false
             }
+            /*
             if (player_pontos < 21 && dealer_pontos < player_pontos) {
                 this.state
                 //continuar ou n
 
-            }
+            }*/
+            return this.state;
+        }
+        else{
+            return this.state
         }
     }
 }
