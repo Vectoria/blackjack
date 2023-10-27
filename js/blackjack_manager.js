@@ -45,12 +45,12 @@ function update_dealer(state) {
         if (state.dealerWon) {
             dealerCardsString += " - Dealer Wins!";
         } else {
-            dealerCardsString += " - Player Wins!";
+            dealerCardsString += " - Dealer Lose!";
         }
     }
 
     // Atualizar a string no elemento HTML associado ao jogador
-    document.getElementById("player_cards").innerHTML = dealerCardsString;
+    document.getElementById("player").innerHTML = dealerCardsString;
 
     // Executar a função finalize_buttons() se o jogo terminou
     if (state.gameEnded) {
@@ -85,7 +85,7 @@ function update_player(state) {
     // Verificar o estado do jogo passado como argumento
     if (state.gameEnded) {
         if (state.dealerWon) {
-            playerCardsString += " - Dealer Wins!";
+            playerCardsString += " - Player lose!";
         } else {
             playerCardsString += " - Player Wins!";
         }
@@ -108,10 +108,12 @@ function dealer_new_card() {
 
 function player_new_card() {
     game.player_move();
+    //game.get_cards_value(game.get_player_cards)
 }
 
 function dealer_finish() {
     //TODO
+    game.get_game_state()
     game.setDealerTurn(true)
 }
 
