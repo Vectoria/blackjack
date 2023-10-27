@@ -23,9 +23,9 @@ class BlackJack {
         //métodos utilizados no construtor (DEVEM SER IMPLEMENTADOS PELOS ALUNOS)
         this.new_deck = function () {
             let suits = ["Spades", "Hearts", "Diamonds", "Clubs"];
-            let values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-           // deck_aux = new Array();
-            let  deck_aux = [];
+            let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+            // deck_aux = new Array();
+            let deck_aux = [];
             for (var i = 0; i < values.length; i++) {
                 for (var x = 0; x < suits.length; x++) {
                     /*
@@ -34,7 +34,7 @@ class BlackJack {
                         weight = 10;
                     if (values[i] == "A")
                         weight = 11;*/
-                    var card = { Value: values[i], Suit: suits[x]};
+                    var card = { Value: values[i], Suit: suits[x] };
                     deck_aux.push(card);
                 }
             }
@@ -43,7 +43,16 @@ class BlackJack {
         };
 
         this.shuffle = function (deck) {
+            let shuffledDeck = [];
+            let indices = Array.from({ length: deck.length }, (_, i) => i);
 
+            while (indices.length > 0) {
+                const randomIndex = Math.floor(Math.random() * indices.length);
+                const cardIndex = indices.splice(randomIndex, 1)[0];
+                shuffledDeck.push(deck[cardIndex]);
+            }
+
+            return shuffledDeck;
         };
 
         // baralho de cartas baralhado
@@ -79,7 +88,7 @@ class BlackJack {
                 
             }
         }*/
-        let valor=0;
+        let valor = 0;
         for (const card of cards) {
             let value = card.Value;
 
@@ -105,6 +114,25 @@ class BlackJack {
     }
 
     get_game_state() {
+        let dealer_pontos = this.get_cards_value(this.dealer_cards)
+        let player_pontos = this.get_cards_value(this.player_cards)
 
+        if (this.dealerTurn) {
+            if (player_pontos > 21 || dealer_pontos == 21 && dealer_pontos > player_pontos) {
+                //player perde
+                this.state.gameEnded=true
+                this.state.dealerWon=true
+                }
+            }
+            if (dealer_pontos > 21 || player_pontos == 21 && dealer_pontos < player_pontos) {
+                //dealer perde
+
+            }
+            if (player_pontos < 21 && dealer_pontos < player_pontos) {
+                this.state
+                //continuar ou n
+
+            }
+        }
     }
 }
