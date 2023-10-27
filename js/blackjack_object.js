@@ -110,6 +110,7 @@ class BlackJack {
         var carta= this.deck.pop()
         this.dealer_cards.push(carta)
         //this.dealerTurn = true;
+        return this.get_game_state();
 
     }
 
@@ -117,7 +118,7 @@ class BlackJack {
         var carta= this.deck.pop()
         this.player_cards.push(carta)
         //this.dealerTurn = false;
-        this.get_game_state()
+        return this.get_game_state();
     }
 
     get_game_state() {
