@@ -64,11 +64,13 @@ function update_player(state) {
     //dealer_move()
 }*/
 function update_player(state) {
+    //ideia: por um h1 ou p na direita, onde será o valor total
     let player_info = ""
     let player_cards = game.get_player_cards()
     player_info += "Player Cards: "
     for (let i = 0; i < player_cards.length; i++) {
        player_info += player_cards[i].Value + " of " + player_cards[i].Suit
+       //player_info+=" "+ game.get_cards_value(player_cards) 
         if (i < player_cards.length - 1) {
             player_info += ", "
         }
@@ -110,8 +112,9 @@ function dealer_finish() {
     //TODO
     let estado = game.get_game_state()
     game.setDealerTurn(true)
-        while (!(estado == game.state.gameEnded)) {
+        /*while (!(estado == game.state.gameEnded)) {
             dealer_new_card()
-        }
+        }*/
+
 }
 

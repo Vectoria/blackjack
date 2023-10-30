@@ -29,12 +29,6 @@ class BlackJack {
             let deck_aux = [];
             for (var i = 0; i < values.length; i++) {
                 for (var x = 0; x < suits.length; x++) {
-                    /*
-                    var weight = parseInt(values[i]);
-                    if (values[i] == "J" || values[i] == "Q" || values[i] == "K")
-                        weight = 10;
-                    if (values[i] == "A")
-                        weight = 11;*/
                     var card = { Value: values[i], Suit: suits[x] }
                     //var card = values[i] + "_of_" + suits[x];
                     deck_aux.push(card)
@@ -79,15 +73,15 @@ class BlackJack {
 
     //MÉTODOS QUE DEVEM SER IMPLEMENTADOS PELOS ALUNOS
     get_cards_value(cards) {
-        //TODO
+        //TODO valor do ace
         let valor = 0
         for (const card of cards) {
             let value = card.Value
 
-            if (value === "A" && valor<11) {
+            if (value === "ace") {
                 valor += 11
             }
-            else if (value === "K" || value === "Q" || value === "J") {
+            else if (value === "king" || value === "queen" || value === "jack") {
                 valor += 10
             } else {
                 valor += parseInt(value)
@@ -114,7 +108,10 @@ class BlackJack {
     get_game_state() {
         let dealer_pontos = this.get_cards_value(this.dealer_cards)
         let player_pontos = this.get_cards_value(this.player_cards)
-
+        if (player_pontos > 21){
+            this.state.gameEnded=true
+            this.state.dealerWon=true
+        }
         if (this.dealerTurn) {
             if (player_pontos > 21 || dealer_pontos == 21 || dealer_pontos > player_pontos && dealer_pontos>=MIN_POINTS_DEALER) {
                 //player perde
