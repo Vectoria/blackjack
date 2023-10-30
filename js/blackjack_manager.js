@@ -112,9 +112,10 @@ function dealer_finish() {
     //TODO
     let estado = game.get_game_state()
     game.setDealerTurn(true)
-        /*while (!(estado == game.state.gameEnded)) {
+        while (!(estado == game.state.gameEnded)) {
             dealer_new_card()
-        }*/
+            estado = game.get_game_state()
+        }
 
 }
 
