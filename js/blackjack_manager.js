@@ -68,7 +68,7 @@ function update_player(state) {
     let player_cards = game.get_player_cards()
     player_info += "Player Cards: "
     for (let i = 0; i < player_cards.length; i++) {
-        player_info += player_cards[i].Value + " of " + player_cards[i].Suit
+       player_info += player_cards[i].Value + " of " + player_cards[i].Suit
         if (i < player_cards.length - 1) {
             player_info += ", "
         }
