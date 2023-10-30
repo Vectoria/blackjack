@@ -79,26 +79,13 @@ class BlackJack {
 
     //MÉTODOS QUE DEVEM SER IMPLEMENTADOS PELOS ALUNOS
     get_cards_value(cards) {
-        /*
-        for (var i = 0; i < values.length; i++) {
-            for (var x = 0; x < suits.length; x++) {
-                let value = parseInt(values[i]);
-                    if (values[i] == "J" || values[i] == "Q" || values[i] == "K")
-                        value = 10;
-                    if (values[i] == "A")
-                        value = 11;
-                
-            }
-        }*/
+        //TODO
         let valor = 0
         for (const card of cards) {
             let value = card.Value
 
             if (value === "A" && valor<11) {
                 valor += 11
-            }
-            else if (value === "A" && valor>=11){
-                valor+=1
             }
             else if (value === "K" || value === "Q" || value === "J") {
                 valor += 10

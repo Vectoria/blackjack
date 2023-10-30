@@ -30,7 +30,15 @@ function new_game() {
 
 function update_dealer(state) {
     let dealer_info = ""
-    if (state.gameEnded) {
+    let dealer_cards = game.get_dealer_cards()
+    dealer_info += "Dealer Cards: "
+    for (let i = 0; i < dealer_cards.length; i++) {
+        dealer_info += dealer_cards[i].Value + " of " + dealer_cards[i].Suit
+        if (i < dealer_cards.length - 1) {
+            dealer_info += ", "
+        }
+    }
+    if (state == game.state.gameEnded) {
         let dealer_cards = game.get_dealer_cards()
         dealer_info += "Dealer Cards: "
         for (let i = 0; i < dealer_cards.length; i++) {
@@ -65,7 +73,7 @@ function update_player(state) {
             player_info += ", "
         }
     }
-    if (state.gameEnded) {
+    if (state == game.state.gameEnded) {
         for (let i = 0; i < player_cards.length; i++) {
             player_info += player_cards[i].Value + " of " + player_cards[i].Suit
             if (i < player_cards.length - 1) {
@@ -79,7 +87,7 @@ function update_player(state) {
         }
         //document.getElementById("player_cards").innerHTML = player_info
         finalize_buttons()
-    } 
+    }
     document.getElementById("player_cards").innerHTML = player_info
 }
 
@@ -102,8 +110,8 @@ function dealer_finish() {
     //TODO
     let estado = game.get_game_state()
     game.setDealerTurn(true)
-/*    while (!estado == game.state.gameEnded) {
-        dealer_new_card()
-    }*/
+        while (!(estado == game.state.gameEnded)) {
+            dealer_new_card()
+        }
 }
 
