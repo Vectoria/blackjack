@@ -29,39 +29,24 @@ function new_game() {
 }
 
 function update_dealer(state) {
-    let dealerCards = game.get_dealer_cards()
-
-    // Construir uma string para mostrar as cartas do jogador
-    let dealerCardsString = "Player's Cards: "
-    for (let i = 0; i < dealerCards.length; i++) {
-        dealerCardsString += dealerCards[i].Value + " of " + dealerCards[i].Suit
-        if (i < dealerCards.length - 1) {
-            dealerCardsString += ", "
+    let dealer_info = ""
+    if (state.gameEnded){
+        let dealer_cards = game.get_dealer_cards()
+        dealer_info += "Dealer Cards: "
+        for (let i = 0; i < dealer_cards.length; i++) {
+            dealer_info += dealer_cards[i].Value + " of " + dealer_cards[i].Suit
+            if (i < dealer_cards.length - 1) {
+                dealer_info += ", "
+            }
         }
-    }
-
-    // Verificar o estado do jogo passado como argumento
-    if (state.gameEnded) {
-        if (state.dealerWon) {
-            dealerCardsString += " - Dealer Wins!"
+        if (state.dealerWon){
+            dealer_info += "dealer wins"
         } else {
-            dealerCardsString += " - Dealer Lose!"
+            dealer_info += "dealer loses"
         }
-    }
-
-    // Atualizar a string no elemento HTML associado ao jogador
-    document.getElementById("player").innerHTML = dealerCardsString
-
-    // Executar a função finalize_buttons() se o jogo terminou
-    if (state.gameEnded) {
+        document.getElementById("dealer_cards").innerHTML = dealer_info
         finalize_buttons()
     }
-/*
-    if (state == game.state.gameEnded) {
-
-    }*/
-    //player_move() 
-    //if(state== )
 
 }
 /*
@@ -71,31 +56,22 @@ function update_player(state) {
     //dealer_move()
 }*/
 function update_player(state) {
-    let playerCards = game.get_player_cards()
-
-    // Construir uma string para mostrar as cartas do jogador
-    let playerCardsString = "Player's Cards: "
-    for (let i = 0; i < playerCards.length; i++) {
-        playerCardsString += playerCards[i].Value + " of " + playerCards[i].Suit
-        if (i < playerCards.length - 1) {
-            playerCardsString += ", "
+    let player_info = ""
+        let player_cards = game.get_player_cards()
+        player_info += "Player Cards: "
+        if (state.gameEnded){
+            for (let i = 0; i < player_cards.length; i++) {
+            player_info += player_cards[i].Value + " of " + player_cards[i].Suit
+            if (i < player_cards.length - 1) {
+                player_info += ", "
+            }
         }
-    }
-
-    // Verificar o estado do jogo passado como argumento
-    if (state.gameEnded) {
-        if (state.dealerWon) {
-            playerCardsString += " - Player lose!"
+        if (state.dealerWon){
+            player_info += "player loses"
         } else {
-            playerCardsString += " - Player Wins!"
+            player_info += "player won"
         }
-    }
-
-    // Atualizar a string no elemento HTML associado ao jogador
-    document.getElementById("player_cards").innerHTML = playerCardsString
-
-    // Executar a função finalize_buttons() se o jogo terminou
-    if (state.gameEnded) {
+        document.getElementById("player_cards").innerHTML = player_info
         finalize_buttons()
     }
 }

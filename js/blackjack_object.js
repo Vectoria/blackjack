@@ -94,10 +94,13 @@ class BlackJack {
         for (const card of cards) {
             let value = card.Value;
 
-            if (value === "A") {
-                numAces++;
+            if (value === "A" && valor<11) {
                 valor += 11;
-            } else if (value === "K" || value === "Q" || value === "J") {
+            }
+            else if (value === "A" && valor>=11){
+                valor +=1;
+            }
+            else if (value === "K" || value === "Q" || value === "J") {
                 valor += 10;
             } else {
                 valor += parseInt(value);
