@@ -32,37 +32,25 @@ function update_dealer(state) {
     let dealer_info = ""
     let dealer_cards = game.get_dealer_cards()
     dealer_info += "Dealer Cards: "
+
     for (let i = 0; i < dealer_cards.length; i++) {
         dealer_info += dealer_cards[i].Value + " of " + dealer_cards[i].Suit
         if (i < dealer_cards.length - 1) {
             dealer_info += ", "
         }
     }
-    if (state == game.state.gameEnded) {
-        let dealer_cards = game.get_dealer_cards()
-        dealer_info += "Dealer Cards: "
-        for (let i = 0; i < dealer_cards.length; i++) {
-            dealer_info += dealer_cards[i].Value + " of " + dealer_cards[i].Suit
-            if (i < dealer_cards.length - 1) {
-                dealer_info += ", "
-            }
-        }
+
+    if (state.gameEnded) {
         if (state.dealerWon) {
-            dealer_info += "dealer wins"
+            dealer_info += " - Dealer wins"
         } else {
-            dealer_info += "dealer loses"
+            dealer_info += " - Dealer loses"
         }
-        document.getElementById("dealer_cards").innerHTML = dealer_info
         finalize_buttons()
     }
-
+    document.getElementById("dealer_cards").innerHTML = dealer_info
 }
-/*
-function update_player(state) {
-    let playerCards = game.get_player_cards()
 
-    //dealer_move()
-}*/
 function update_player(state) {
     //ideia: por um h1 ou p na direita, onde será o valor total
     let player_info = ""
@@ -83,20 +71,21 @@ function update_player(state) {
             }
         }
         if (state.dealerWon) {
-            player_info += "player loses"
+            player_info += " - Player loses"
         } else {
-            player_info += "player won"
+            player_info += " - Player won"
         }
-        //document.getElementById("player_cards").innerHTML = player_info
         finalize_buttons()
     }
     document.getElementById("player_cards").innerHTML = player_info
 }
 
 function dealer_new_card() {
-    game.dealer_move()
-    update_dealer(game.get_game_state())
-    return game.get_game_state()
+    game.dealer_move();
+    let dealerCards = game.get_dealer_cards();
+    console.log("Dealer's new card:", dealerCards[dealerCards.length - 1]);
+    update_dealer(game.get_game_state());
+    return game.get_game_state();
 }
 
 function player_new_card() {
@@ -107,11 +96,17 @@ function player_new_card() {
 }
 
 function dealer_finish() {
-    //TODO
-    let estado = game.get_game_state()
-    game.setDealerTurn(true)
-        while ((estado != game.state.gameEnded)) {
-            estado = dealer_new_card()
-            document.getElementById("dealer_cards").innerHTML += "debug "
-        }
+    console.log("Dealer's turn started");
+    game.setDealerTurn(true);
+    let state = game.get_game_state();
+    
+    while (!state.gameEnded && game.get_cards_value(game.get_dealer_cards()) < MIN_POINTS_DEALER) {
+        console.log("Drawing a new card for the dealer");
+        dealer_new_card();
+        state = game.get_game_state();
+        console.log("Dealer's state:", state);
+        update_dealer(state);
+    }
+    
+    console.log("Dealer's turn ended");
 }
