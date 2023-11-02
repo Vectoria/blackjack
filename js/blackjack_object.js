@@ -109,35 +109,34 @@ class BlackJack {
         let dealer_pontos = this.get_cards_value(this.dealer_cards)
         console.log("Dealer points:", dealer_pontos);
         let player_pontos = this.get_cards_value(this.player_cards)
-
         console.log("Player points:", player_pontos);
 
-        if (player_pontos > 21){
-            this.state.gameEnded=true
-            this.state.dealerWon=true
-        }
         if (this.dealerTurn) {
-            if (player_pontos > 21 || dealer_pontos == 21 || dealer_pontos > player_pontos && dealer_pontos>=MIN_POINTS_DEALER) {
-                //player perde
-                this.state.gameEnded=true
-                this.state.dealerWon=true
-                
+            if (dealer_pontos >= MIN_POINTS_DEALER && dealer_pontos <= MAX_POINTS) {
+                // Dealer has 17 or more points, game ends
+                this.state.gameEnded = true;
+                if (dealer_pontos > MAX_POINTS) {
+                    // Dealer busts, game ended, player wins
+                    this.state.dealerWon = false;
+                } else if (dealer_pontos > player_pontos) {
+                    // Dealer wins
+                    this.state.dealerWon = true;
+                } else if (dealer_pontos < player_pontos) {
+                    // Player wins
+                    this.state.dealerWon = false;
+                } else {
+                    // It's a draw
+                    this.state.dealerWon = false;
+                }
             }
-            if (dealer_pontos > 21 || player_pontos == 21 || dealer_pontos < player_pontos && dealer_pontos>=MIN_POINTS_DEALER) {
-                //dealer perde
-                this.state.gameEnded=true
-                this.state.dealerWon=false
+        } else {
+            if (player_pontos > MAX_POINTS) {
+                // Player busts, game ended, dealer wins
+                this.state.gameEnded = true;
+                this.state.dealerWon = true;
             }
-            /*
-            if (player_pontos < 21 && dealer_pontos < player_pontos) {
-                this.state
-                //continuar ou n
-
-            }*/
-            return this.state
         }
-        else{
-            return this.state
-        }
+    
+        return this.state;
     }
 }
