@@ -101,19 +101,17 @@ function dealer_new_card() {
 
 function player_new_card() {
     game.player_move()
-    update_player(game.get_game_state())
+    update_player(game.get_game_state());
     //game.get_cards_value(game.get_player_cards)
     return game.get_game_state()
 }
 
 function dealer_finish() {
-    let state = game.get_game_state()
+    //TODO
+    let estado = game.get_game_state()
     game.setDealerTurn(true)
-
-    while (!state.gameEnded && game.get_cards_value(game.get_dealer_cards()) < MIN_POINTS_DEALER) {
-        dealer_new_card()
-        state = game.get_game_state()
-    }
-
-    update_dealer(state)
+        while ((estado != game.state.gameEnded)) {
+            estado = dealer_new_card()
+            document.getElementById("dealer_cards").innerHTML += "debug "
+        }
 }
