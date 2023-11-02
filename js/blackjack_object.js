@@ -109,7 +109,9 @@ class BlackJack {
         let dealer_pontos = this.get_cards_value(this.dealer_cards)
         console.log("Dealer points:", dealer_pontos);
         let player_pontos = this.get_cards_value(this.player_cards)
+
         console.log("Player points:", player_pontos);
+
         if (player_pontos > 21){
             this.state.gameEnded=true
             this.state.dealerWon=true
