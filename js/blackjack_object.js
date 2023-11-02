@@ -23,18 +23,12 @@ class BlackJack {
 
         //métodos utilizados no construtor (DEVEM SER IMPLEMENTADOS PELOS ALUNOS)
         this.new_deck = function () {
-            let suits = ["spades", "hearts", "diamonds", "clubs"]
+            let suits = ["spades", "hearts", "diamonds", "clubs"];
             let values = ["ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"]
             // deck_aux = new Array();
-            let deck_aux = []
+            let deck_aux = [];
             for (var i = 0; i < values.length; i++) {
                 for (var x = 0; x < suits.length; x++) {
-                    /*
-                    var weight = parseInt(values[i]);
-                    if (values[i] == "J" || values[i] == "Q" || values[i] == "K")
-                        weight = 10
-                    if (values[i] == "A")
-                        weight = 11*/
                     var card = { Value: values[i], Suit: suits[x] }
                     //var card = values[i] + "_of_" + suits[x];
                     deck_aux.push(card)
@@ -54,8 +48,8 @@ class BlackJack {
                 shuffledDeck.push(deck[cardIndex])
             }
 
-            return shuffledDeck;
-        };
+            return shuffledDeck
+        }
 
         // baralho de cartas baralhado
         this.deck = this.shuffle(this.new_deck())
@@ -79,25 +73,15 @@ class BlackJack {
 
     //MÉTODOS QUE DEVEM SER IMPLEMENTADOS PELOS ALUNOS
     get_cards_value(cards) {
-        /*
-        for (var i = 0; i < values.length; i++) {
-            for (var x = 0; x < suits.length; x++) {
-                let value = parseInt(values[i])
-                    if (values[i] == "J" || values[i] == "Q" || values[i] == "K")
-                        value = 10
-                    if (values[i] == "A")
-                        value = 11
-                
-            }
-        }*/
-        let valor = 0;
+        //TODO valor do ace
+        let valor = 0
         for (const card of cards) {
             let value = card.Value
 
-            if (value === "A") {
-                numAces++
+            if (value === "ace") {
                 valor += 11
-            } else if (value === "K" || value === "Q" || value === "J") {
+            }
+            else if (value === "king" || value === "queen" || value === "jack") {
                 valor += 10
             } else {
                 valor += parseInt(value)
@@ -109,21 +93,25 @@ class BlackJack {
     dealer_move() {
         var carta= this.deck.pop()
         this.dealer_cards.push(carta)
-        //this.dealerTurn = true
+        //this.dealerTurn = true;
+        return this.get_game_state()
 
     }
 
     player_move() {
         var carta= this.deck.pop()
         this.player_cards.push(carta)
-        //this.dealerTurn = false
-        this.get_game_state()
+        //this.dealerTurn = false;
+        return this.get_game_state()
     }
 
     get_game_state() {
         let dealer_pontos = this.get_cards_value(this.dealer_cards)
         let player_pontos = this.get_cards_value(this.player_cards)
-
+        if (player_pontos > 21){
+            this.state.gameEnded=true
+            this.state.dealerWon=true
+        }
         if (this.dealerTurn) {
             if (player_pontos > 21 || dealer_pontos == 21 || dealer_pontos > player_pontos && dealer_pontos>=MIN_POINTS_DEALER) {
                 //player perde
