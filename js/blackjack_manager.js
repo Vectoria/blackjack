@@ -93,27 +93,27 @@ function update_player(state) {
     document.getElementById("player_cards").innerHTML = player_info
 }
 
-
 function dealer_new_card() {
     game.dealer_move()
-    update_dealer()
+    update_dealer(game.get_game_state())
     return game.get_game_state()
-
 }
 
 function player_new_card() {
     game.player_move()
-    update_player()
+    update_player(game.get_game_state())
     //game.get_cards_value(game.get_player_cards)
     return game.get_game_state()
 }
 
 function dealer_finish() {
-    //TODO
-    let estado = game.get_game_state()
+    let state = game.get_game_state()
     game.setDealerTurn(true)
-        while (!(estado == game.state.gameEnded)) {
-            dealer_new_card()
-            estado = game.get_game_state()
-        }
+
+    while (!state.gameEnded && game.get_cards_value(game.get_dealer_cards()) < MIN_POINTS_DEALER) {
+        dealer_new_card()
+        state = game.get_game_state()
+    }
+
+    update_dealer(state)
 }
