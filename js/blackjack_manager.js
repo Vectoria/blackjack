@@ -21,12 +21,16 @@ function finalize_buttons() {
 
 //FUNÇÕES QUE DEVEM SER IMPLEMENTADAS PELOS ALUNOS
 function new_game() {
+    let atras = document.getElementById("dealer")
     game = new BlackJack()
     debug(game)
     buttons_initialization()
     player_new_card()
     dealer_new_card()
-    dealer_new_card()
+    //dealer_new_card()
+    const myImage = new Image(150,200)
+    myImage.src="../img/png/card_back.png"
+    atras.appendChild(myImage)
 }
 
 function update_dealer(state) {
@@ -40,7 +44,7 @@ function update_dealer(state) {
     for (let i = 0; i < dealer_cards.length; i++) {
         const myImage = new Image(150,200)
         myImage.src = "../img/png/" + dealer_cards[i].Value + "_of_" + dealer_cards[i].Suit + ".png"
-        apostador.appendChild(myImage);
+        apostador.appendChild(myImage)
         dealer_info += dealer_cards[i].Value + " of " + dealer_cards[i].Suit
         if (i < dealer_cards.length - 1) {
             dealer_info += ", "
