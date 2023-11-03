@@ -57,19 +57,13 @@ function update_player(state) {
     let player_cards = game.get_player_cards()
     player_info += "Player Cards: "
     for (let i = 0; i < player_cards.length; i++) {
-       player_info += player_cards[i].Value + " of " + player_cards[i].Suit
-       //player_info+=" "+ game.get_cards_value(player_cards) 
+        player_info += player_cards[i].Value + " of " + player_cards[i].Suit
+        //player_info+=" "+ game.get_cards_value(player_cards) 
         if (i < player_cards.length - 1) {
             player_info += ", "
         }
     }
     if (state == game.state.gameEnded) {
-        for (let i = 0; i < player_cards.length; i++) {
-            player_info += player_cards[i].Value + " of " + player_cards[i].Suit
-            if (i < player_cards.length - 1) {
-                player_info += ", "
-            }
-        }
         if (state.dealerWon) {
             player_info += " - Player loses"
         } else {
@@ -98,7 +92,7 @@ function dealer_finish() {
     console.log("Dealer's turn started")
     game.setDealerTurn(true)
     let state = game.get_game_state()
-    
+
     while (!state.gameEnded && game.get_cards_value(game.get_dealer_cards()) < MIN_POINTS_DEALER) {
         console.log("Drawing a new card for the dealer")
         dealer_new_card()
@@ -106,6 +100,6 @@ function dealer_finish() {
         console.log("Dealer's state:", state)
         update_dealer(state);
     }
-    
+
     console.log("Dealer's turn ended")
 }

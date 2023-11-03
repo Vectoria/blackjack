@@ -112,7 +112,7 @@ class BlackJack {
         console.log("Player points:", player_pontos);
 
         if (this.dealerTurn) {
-            if (dealer_pontos >= MIN_POINTS_DEALER && dealer_pontos <= MAX_POINTS) {
+            if (dealer_pontos >= MIN_POINTS_DEALER) {
                 // Dealer has 17 or more points, game ends
                 this.state.gameEnded = true;
                 if (dealer_pontos > MAX_POINTS) {
