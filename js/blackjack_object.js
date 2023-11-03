@@ -75,17 +75,22 @@ class BlackJack {
     get_cards_value(cards) {
         //TODO valor do ace
         let valor = 0
+        let ace_num = 0
         for (const card of cards) {
             let value = card.Value
 
             if (value === "ace") {
                 valor += 11
+                ace_num ++
             }
             else if (value === "king" || value === "queen" || value === "jack") {
                 valor += 10
             } else {
                 valor += parseInt(value)
             }
+        }
+        if (valor > 21){
+            valor -= 10*ace_num
         }
         return valor
     }
@@ -107,36 +112,41 @@ class BlackJack {
 
     get_game_state() {
         let dealer_pontos = this.get_cards_value(this.dealer_cards)
-        console.log("Dealer points:", dealer_pontos);
+        console.log("Dealer points:", dealer_pontos)
         let player_pontos = this.get_cards_value(this.player_cards)
-        console.log("Player points:", player_pontos);
+        console.log("Player points:", player_pontos)
 
         if (this.dealerTurn) {
             if (dealer_pontos >= MIN_POINTS_DEALER) {
                 // Dealer has 17 or more points, game ends
-                this.state.gameEnded = true;
+                this.state.gameEnded = true
                 if (dealer_pontos > MAX_POINTS) {
                     // Dealer busts, game ended, player wins
-                    this.state.dealerWon = false;
+                    this.state.dealerWon = false
                 } else if (dealer_pontos > player_pontos) {
                     // Dealer wins
-                    this.state.dealerWon = true;
+                    this.state.dealerWon = true
                 } else if (dealer_pontos < player_pontos) {
                     // Player wins
-                    this.state.dealerWon = false;
+                    this.state.dealerWon = false
                 } else {
                     // It's a draw
-                    this.state.dealerWon = false;
+                    this.state.dealerWon = false
                 }
             }
         } else {
             if (player_pontos > MAX_POINTS) {
                 // Player busts, game ended, dealer wins
-                this.state.gameEnded = true;
-                this.state.dealerWon = true;
+                this.state.gameEnded = true
+                this.state.dealerWon = true
+            } else {
+                if (player_pontos == MAX_POINTS){
+                    this.state.gameEnded = true
+                    this.state.dealerWon = false
+                }
             }
         }
     
-        return this.state;
+        return this.state
     }
 }
