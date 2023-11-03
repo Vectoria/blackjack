@@ -46,32 +46,24 @@ function update_dealer(state) {
             dealer_info += ", "
         }
     }
-
-    if (state == game.state.gameEnded) {
-        let dealer_cards = game.get_dealer_cards()
-        dealer_info += "Dealer Cards: "
-        for (let i = 0; i < dealer_cards.length; i++) {
-            dealer_info += dealer_cards[i].Value + " of " + dealer_cards[i].Suit
-            if (i < dealer_cards.length - 1) {
-                dealer_info += ", "
-            }
+    let player_info = ""
+    let player_cards = game.get_player_cards()
+    player_info += "Player Cards: "
+    for (let i = 0; i < player_cards.length; i++) {
+        player_info += player_cards[i].Value + " of " + player_cards[i].Suit
+        if (i < player_cards.length - 1) {
+            player_info += ", "
         }
-        if (state.dealerWon) {
-            dealer_info += "dealer wins"
-        } else {
-            dealer_info += "dealer loses"
-        }
-        document.getElementById("dealer_cards").innerHTML = dealer_info
-        finalize_buttons()
     }
     if (state.gameEnded) {
         if (state.dealerWon) {
-            dealer_info += " - Dealer wins"
+            dealer_info += " - WINNER!"
         } else {
-            dealer_info += " - Dealer loses"
+            player_info += " - WINNER!"
         }
         finalize_buttons()
     }
+    document.getElementById("player_cards").innerHTML = player_info
     document.getElementById("dealer_cards").innerHTML = dealer_info
 }
 
@@ -93,15 +85,25 @@ function update_player(state) {
             player_info += ", "
         }
     }
+    let dealer_info = ""
+    let dealer_cards = game.get_dealer_cards()
+    dealer_info += "Dealer Cards: "
+    for (let i = 0; i < dealer_cards.length; i++) {
+        dealer_info += dealer_cards[i].Value + " of " + dealer_cards[i].Suit
+        if (i < dealer_cards.length - 1) {
+            dealer_info += ", "
+        }
+    }
     if (state.gameEnded) {
         if (state.dealerWon) {
-            player_info += " - Player loses"
+            dealer_info += " - WINNER!"
         } else {
-            player_info += " - Player won"
+            player_info += " - WINNER!"
         }
         finalize_buttons()
     }
     document.getElementById("player_cards").innerHTML = player_info
+    document.getElementById("dealer_cards").innerHTML = dealer_info
 }
 function dealer_new_card() {
     game.dealer_move()
