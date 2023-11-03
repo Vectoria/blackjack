@@ -23,7 +23,7 @@ function finalize_buttons() {
 function new_game() {
     let atras = document.getElementById("dealer")
     game = new BlackJack()
-    debug(game)
+   // debug(game)
     buttons_initialization()
     player_new_card()
     dealer_new_card()
@@ -35,6 +35,8 @@ function new_game() {
 
 function update_dealer(state) {
     let dealer_info = ""
+    let winner = ""
+    let pontuacao
     let dealer_cards = game.get_dealer_cards()
     dealer_info += "Dealer Cards: "
     let apostador = document.getElementById("dealer")
@@ -44,12 +46,13 @@ function update_dealer(state) {
     for (let i = 0; i < dealer_cards.length; i++) {
         const myImage = new Image(150,200)
         myImage.src = "../img/png/" + dealer_cards[i].Value + "_of_" + dealer_cards[i].Suit + ".png"
-        apostador.appendChild(myImage)
+        apostador.appendChild(myImage);
         dealer_info += dealer_cards[i].Value + " of " + dealer_cards[i].Suit
         if (i < dealer_cards.length - 1) {
             dealer_info += ", "
         }
     }
+    pontuacao=game.get_cards_value(dealer_cards)
     let player_info = ""
     let player_cards = game.get_player_cards()
     player_info += "Player Cards: "
@@ -61,12 +64,14 @@ function update_dealer(state) {
     }
     if (state.gameEnded) {
         if (state.dealerWon) {
-            dealer_info += " - WINNER!"
+            winner += "DEALER WINS!"
         } else {
-            player_info += " - WINNER!"
+            winner += "PLAYER WINS!"
         }
         finalize_buttons()
     }
+    document.getElementById("dealer_pontinhos").innerHTML = pontuacao
+    document.getElementById("winner").innerHTML = winner    
     document.getElementById("player_cards").innerHTML = player_info
     document.getElementById("dealer_cards").innerHTML = dealer_info
 }
@@ -74,6 +79,8 @@ function update_dealer(state) {
 function update_player(state) {
     //ideia: por um h1 ou p na direita, onde será o valor total
     let player_info = ""
+    let winner = ""
+    let pontuacao
     let player_cards = game.get_player_cards()
     player_info += "Player Cards: "
     let jogador = document.getElementById("player")
@@ -88,7 +95,10 @@ function update_player(state) {
         if (i < player_cards.length - 1) {
             player_info += ", "
         }
+        
     }
+    pontuacao=game.get_cards_value(player_cards)
+
     let dealer_info = ""
     let dealer_cards = game.get_dealer_cards()
     dealer_info += "Dealer Cards: "
@@ -100,12 +110,14 @@ function update_player(state) {
     }
     if (state.gameEnded) {
         if (state.dealerWon) {
-            dealer_info += " - WINNER!"
+            winner += "DEALER WINS!"
         } else {
-            player_info += " - WINNER!"
+            winner += "PLAYER WINS!"
         }
         finalize_buttons()
     }
+    document.getElementById("player_pontinhos").innerHTML = pontuacao
+    document.getElementById("winner").innerHTML = winner   
     document.getElementById("player_cards").innerHTML = player_info
     document.getElementById("dealer_cards").innerHTML = dealer_info
 }
