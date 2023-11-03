@@ -23,6 +23,7 @@ function finalize_buttons() {
 function new_game() {
     game = new BlackJack()
     debug(game)
+    buttons_initialization()
     player_new_card()
     dealer_new_card()
     dealer_new_card()
@@ -84,8 +85,10 @@ function update_player(state) {
         jogador.removeChild(jogador.lastChild);
     }
     for (let i = 0; i < player_cards.length; i++) {
+        const myImage = new Image(150,200);
+        myImage.src = "../img/png/" + player_cards[i].Value + "_of_" + player_cards[i].Suit + ".png"
+        jogador.appendChild(myImage);
         player_info += player_cards[i].Value + " of " + player_cards[i].Suit
-        //player_info+=" "+ game.get_cards_value(player_cards) 
         if (i < player_cards.length - 1) {
             player_info += ", "
         }
