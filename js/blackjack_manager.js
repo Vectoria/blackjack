@@ -32,8 +32,14 @@ function update_dealer(state) {
     let dealer_info = ""
     let dealer_cards = game.get_dealer_cards()
     dealer_info += "Dealer Cards: "
-
+    let apostador = document.getElementById("dealer")
+    while (apostador.lastChild) {
+        apostador.removeChild(apostador.lastChild);
+    }
     for (let i = 0; i < dealer_cards.length; i++) {
+        const myImage = new Image(150,200);
+        myImage.src = "../img/png/" + dealer_cards[i].Value + "_of_" + dealer_cards[i].Suit + ".png"
+        apostador.appendChild(myImage);
         dealer_info += dealer_cards[i].Value + " of " + dealer_cards[i].Suit
         if (i < dealer_cards.length - 1) {
             dealer_info += ", "
@@ -58,12 +64,7 @@ function update_dealer(state) {
     }
 
 
-    for (let i = 0; i < dealer_cards.length; i++) {
-        dealer_info += dealer_cards[i].Value + " of " + dealer_cards[i].Suit
-        if (i < dealer_cards.length - 1) {
-            dealer_info += ", "
-        }
-    }
+
 
     if (state.gameEnded) {
         if (state.dealerWon) {
@@ -86,9 +87,16 @@ function update_player(state) {
     let player_info = ""
     let player_cards = game.get_player_cards()
     player_info += "Player Cards: "
+    let jogador = document.getElementById("player")
+    while (jogador.lastChild) {
+        jogador.removeChild(jogador.lastChild);
+    }
     for (let i = 0; i < player_cards.length; i++) {
-       player_info += player_cards[i].Value + " of " + player_cards[i].Suit
-       //player_info+=" "+ game.get_cards_value(player_cards) 
+        const myImage = new Image(150,200);
+        myImage.src = "../img/png/" + player_cards[i].Value + "_of_" + player_cards[i].Suit + ".png"
+        jogador.appendChild(myImage);
+        player_info += player_cards[i].Value + " of " + player_cards[i].Suit
+        //player_info+=" "+ game.get_cards_value(player_cards) 
         if (i < player_cards.length - 1) {
             player_info += ", "
         }
@@ -134,11 +142,11 @@ function player_new_card() {
 
 function dealer_finish() {
 
-  //TODO
+    //TODO
     console.log("Dealer's turn started");
     game.setDealerTurn(true);
     let state = game.get_game_state();
-    
+
     while (!state.gameEnded && game.get_cards_value(game.get_dealer_cards()) < MIN_POINTS_DEALER) {
         console.log("Drawing a new card for the dealer");
         dealer_new_card();
@@ -146,6 +154,6 @@ function dealer_finish() {
         console.log("Dealer's state:", state);
         update_dealer(state);
     }
-    
+
     console.log("Dealer's turn ended");
 }
