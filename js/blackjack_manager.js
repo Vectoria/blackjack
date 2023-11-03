@@ -93,7 +93,7 @@ function update_player(state) {
             player_info += ", "
         }
     }
-    if (state == game.state.gameEnded) {
+    if (state.gameEnded) {
         if (state.dealerWon) {
             player_info += " - Player loses"
         } else {
@@ -113,6 +113,8 @@ function dealer_new_card() {
 
 function player_new_card() {
     game.player_move()
+    let PlayerCards = game.get_player_cards()
+    console.log("Player's new card:", PlayerCards[PlayerCards.length - 1])
     update_player(game.get_game_state())
     return game.get_game_state()
 }
