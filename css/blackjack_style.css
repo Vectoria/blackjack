@@ -20,6 +20,7 @@
 html,
 body {
     overflow-y: hidden;
+    overflow-X: hidden;
 }
 
 .container {

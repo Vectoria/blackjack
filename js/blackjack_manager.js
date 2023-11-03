@@ -36,7 +36,7 @@ function new_game() {
 function update_dealer(state) {
     let dealer_info = ""
     let winner = ""
-    let pontuacao
+    let pontuacao = "Dealer - "
     let dealer_cards = game.get_dealer_cards()
     dealer_info += "Dealer Cards: "
     let apostador = document.getElementById("dealer")
@@ -52,7 +52,7 @@ function update_dealer(state) {
             dealer_info += ", "
         }
     }
-    pontuacao=game.get_cards_value(dealer_cards)
+    pontuacao+=game.get_cards_value(dealer_cards)
     let player_info = ""
     let player_cards = game.get_player_cards()
     player_info += "Player Cards: "
@@ -70,17 +70,17 @@ function update_dealer(state) {
         }
         finalize_buttons()
     }
-    document.getElementById("dealer_pontinhos").innerHTML = pontuacao
+    document.getElementById("dealer_pontinhos").innerHTML = pontuacao + " Points"
     document.getElementById("winner").innerHTML = winner    
-    document.getElementById("player_cards").innerHTML = player_info
-    document.getElementById("dealer_cards").innerHTML = dealer_info
+    //document.getElementById("player_cards").innerHTML = player_info
+    //document.getElementById("dealer_cards").innerHTML = dealer_info
 }
 
 function update_player(state) {
     //ideia: por um h1 ou p na direita, onde será o valor total
     let player_info = ""
     let winner = ""
-    let pontuacao
+    let pontuacao ="Player - "
     let player_cards = game.get_player_cards()
     player_info += "Player Cards: "
     let jogador = document.getElementById("player")
@@ -97,7 +97,7 @@ function update_player(state) {
         }
         
     }
-    pontuacao=game.get_cards_value(player_cards)
+    pontuacao+=game.get_cards_value(player_cards)
 
     let dealer_info = ""
     let dealer_cards = game.get_dealer_cards()
@@ -116,10 +116,10 @@ function update_player(state) {
         }
         finalize_buttons()
     }
-    document.getElementById("player_pontinhos").innerHTML = pontuacao
+    document.getElementById("player_pontinhos").innerHTML = pontuacao + " Points"
     document.getElementById("winner").innerHTML = winner   
-    document.getElementById("player_cards").innerHTML = player_info
-    document.getElementById("dealer_cards").innerHTML = dealer_info
+   // document.getElementById("player_cards").innerHTML = player_info
+    //document.getElementById("dealer_cards").innerHTML = dealer_info
 }
 function dealer_new_card() {
     game.dealer_move()

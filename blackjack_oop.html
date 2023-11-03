@@ -12,24 +12,25 @@
 </head>
 
 <body class="bg">
-  <header class="container text-center text-white">
+  <header class="container text-center text-white py-4">
     <h1>Blackjack</h1>
   </header>
 
   <main class="container text-center">
     <section id="game">
-      <h2>Dealer</h2>
-      <div class="row d-flex">
+      <section id="seccao_dealer" class="py-3">
+        <div class="row d-flex">
+          <h2 id="dealer_pontinhos"></h2>
+
+        </div>
         <p id="dealer"></p>
-      </div>
-      <div class="row">
         <p id="dealer_cards"></p>
-        <p id="dealer_pontinhos"></p>
-      </div>
-      <h2>Player</h2>
-      <p id="player"></p>
-      <p id="player_cards"></p>
-      <p id="player_pontinhos"></p>
+      </section>
+      <section id="seccao_player" class="py-4">
+        <h2 id="player_pontinhos"></h2>
+        <p id="player"></p>
+        <p id="player_cards"></p>
+      </section>
       <button class="btn btn-primary" id="card" type="button" onclick="player_new_card()">Card</button>
       <button class="btn btn-danger" id="stand" type="button" onclick="dealer_finish()">Stand</button>
       <button class="btn btn-success" id="new_game" type="button" onclick="new_game()" disabled>New Game</button>
