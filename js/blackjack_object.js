@@ -139,6 +139,11 @@ class BlackJack {
                 // Player busts, game ended, dealer wins
                 this.state.gameEnded = true
                 this.state.dealerWon = true
+            } else {
+                if (player_pontos == MAX_POINTS){
+                    this.state.gameEnded = true
+                    this.state.dealerWon = false
+                }
             }
         }
     

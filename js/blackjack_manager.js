@@ -35,10 +35,10 @@ function update_dealer(state) {
     dealer_info += "Dealer Cards: "
     let apostador = document.getElementById("dealer")
     while (apostador.lastChild) {
-        apostador.removeChild(apostador.lastChild);
+        apostador.removeChild(apostador.lastChild)
     }
     for (let i = 0; i < dealer_cards.length; i++) {
-        const myImage = new Image(150,200);
+        const myImage = new Image(150,200)
         myImage.src = "../img/png/" + dealer_cards[i].Value + "_of_" + dealer_cards[i].Suit + ".png"
         apostador.appendChild(myImage);
         dealer_info += dealer_cards[i].Value + " of " + dealer_cards[i].Suit
@@ -74,12 +74,12 @@ function update_player(state) {
     player_info += "Player Cards: "
     let jogador = document.getElementById("player")
     while (jogador.lastChild) {
-        jogador.removeChild(jogador.lastChild);
+        jogador.removeChild(jogador.lastChild)
     }
     for (let i = 0; i < player_cards.length; i++) {
         const myImage = new Image(150,200);
         myImage.src = "../img/png/" + player_cards[i].Value + "_of_" + player_cards[i].Suit + ".png"
-        jogador.appendChild(myImage);
+        jogador.appendChild(myImage)
         player_info += player_cards[i].Value + " of " + player_cards[i].Suit
         if (i < player_cards.length - 1) {
             player_info += ", "
