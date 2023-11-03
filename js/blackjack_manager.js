@@ -114,7 +114,6 @@ function dealer_new_card() {
 function player_new_card() {
     game.player_move()
     update_player(game.get_game_state())
-    //game.get_cards_value(game.get_player_cards)
     return game.get_game_state()
 }
 
@@ -123,12 +122,16 @@ function dealer_finish() {
     game.setDealerTurn(true)
     let state = game.get_game_state()
 
+    if (state.gameEnded && game.get_cards_value(game.get_dealer_cards()) >= MIN_POINTS_DEALER) {
+        update_dealer(state)
+    }
+
     while (!state.gameEnded && game.get_cards_value(game.get_dealer_cards()) < MIN_POINTS_DEALER) {
         console.log("Drawing a new card for the dealer")
         dealer_new_card()
         state = game.get_game_state()
         console.log("Dealer's state:", state)
-        update_dealer(state);
+        update_dealer(state)
     }
 
     console.log("Dealer's turn ended")
