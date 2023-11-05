@@ -25,12 +25,10 @@ class BlackJack {
         this.new_deck = function () {
             let suits = ["spades", "hearts", "diamonds", "clubs"];
             let values = ["ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"]
-            // deck_aux = new Array();
             let deck_aux = [];
             for (var i = 0; i < values.length; i++) {
                 for (var x = 0; x < suits.length; x++) {
                     var card = { Value: values[i], Suit: suits[x] }
-                    //var card = values[i] + "_of_" + suits[x];
                     deck_aux.push(card)
                 }
             }
@@ -73,7 +71,6 @@ class BlackJack {
 
     //MÉTODOS QUE DEVEM SER IMPLEMENTADOS PELOS ALUNOS
     get_cards_value(cards) {
-        //TODO valor do ace
         let valor = 0
         let ace_num = 0
         for (const card of cards) {
@@ -98,7 +95,6 @@ class BlackJack {
     dealer_move() {
         var carta= this.deck.pop()
         this.dealer_cards.push(carta)
-        //this.dealerTurn = true;
         return this.get_game_state()
 
     }
@@ -106,7 +102,6 @@ class BlackJack {
     player_move() {
         var carta= this.deck.pop()
         this.player_cards.push(carta)
-        //this.dealerTurn = false;
         return this.get_game_state()
     }
 
@@ -118,25 +113,19 @@ class BlackJack {
 
         if (this.dealerTurn) {
             if (dealer_pontos >= MIN_POINTS_DEALER) {
-                // Dealer has 17 or more points, game ends
                 this.state.gameEnded = true
                 if (dealer_pontos > MAX_POINTS) {
-                    // Dealer busts, game ended, player wins
                     this.state.dealerWon = false
                 } else if (dealer_pontos > player_pontos) {
-                    // Dealer wins
                     this.state.dealerWon = true
                 } else if (dealer_pontos < player_pontos) {
-                    // Player wins
                     this.state.dealerWon = false
                 } else {
-                    // It's a draw
                     this.state.dealerWon = false
                 }
             }
         } else {
             if (player_pontos > MAX_POINTS) {
-                // Player busts, game ended, dealer wins
                 this.state.gameEnded = true
                 this.state.dealerWon = true
             } else {

@@ -27,7 +27,6 @@ function new_game() {
     buttons_initialization()
     player_new_card()
     dealer_new_card()
-    //dealer_new_card()
     const myImage = new Image(150,200)
     myImage.src="../img/png/card_back.png"
     atras.appendChild(myImage)
@@ -72,8 +71,6 @@ function update_dealer(state) {
     }
     document.getElementById("dealer_pontinhos").innerHTML = pontuacao + " Points"
     document.getElementById("winner").innerHTML = winner    
-    //document.getElementById("player_cards").innerHTML = player_info
-    //document.getElementById("dealer_cards").innerHTML = dealer_info
 }
 
 function update_player(state) {
@@ -118,8 +115,6 @@ function update_player(state) {
     }
     document.getElementById("player_pontinhos").innerHTML = pontuacao + " Points"
     document.getElementById("winner").innerHTML = winner   
-   // document.getElementById("player_cards").innerHTML = player_info
-    //document.getElementById("dealer_cards").innerHTML = dealer_info
 }
 function dealer_new_card() {
     game.dealer_move()
